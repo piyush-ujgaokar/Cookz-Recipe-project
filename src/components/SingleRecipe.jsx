@@ -16,18 +16,19 @@ const SingleRecipe = () => {
     const filterData=data.filter(r=>r.id != params.id )
     setData(filterData)
     toast.error("Recipe Deleted Successfully")
+     localStorage.setItem("recipes",JSON.stringify(filterData))
     navigate('/recipes')
   }
 
 
     const {register, handleSubmit, reset}=useForm({defaultValues:{
-      title:recipe.title,
-      chef:recipe.chef,
-      image:recipe.image,
-      desc:recipe.desc,
-      catrgory:recipe.category,
-      ingr:recipe.ingredients,
-      inst:recipe.instruction
+      title:recipe?.title,
+      chef:recipe?.chef,
+      image:recipe?.image,
+      desc:recipe?.desc,
+      catrgory:recipe?.category,
+      ingr:recipe?.ingredients,
+      inst:recipe?.instruction
     }})
 
     const updateHandler=(recipe)=>{
@@ -37,6 +38,7 @@ const SingleRecipe = () => {
       copydata[index]={...copydata[index], ...recipe}
       setData(copydata)
       toast.success('Recipe Updated !')
+       localStorage.setItem("recipes",JSON.stringify(copydata))
 
      }
 

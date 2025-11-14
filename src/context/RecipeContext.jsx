@@ -1,12 +1,15 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 export const recipecontext=createContext(null)
 
 const RecipeContext = (props) => {
     const [data, setData] = useState([])
 
+    useEffect(()=>{
 
-    console.log(data);
+      setData(JSON.parse(localStorage.getItem("recipes")) || [])
+
+    },[])
     
   return (
     <div>
