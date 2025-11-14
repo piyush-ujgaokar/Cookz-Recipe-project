@@ -30,7 +30,7 @@ const SingleRecipe = () => {
       inst:recipe.instruction
     }})
 
-    const SubmitHandler=(recipe)=>{
+    const updateHandler=(recipe)=>{
 
       const index=data.findIndex((recipe)=> params.id == recipe.id)
       const copydata=[...data]
@@ -53,7 +53,7 @@ const SingleRecipe = () => {
         </div>
 
 
-            <form onSubmit={handleSubmit(SubmitHandler)} className='flex flex-col w-[30%] gap-3'>
+            <form onSubmit={handleSubmit(updateHandler)} className='flex flex-col w-[30%] gap-3'>
             <input className='border-b outline-none p-2' {...register('image')}  type="url" placeholder='Image Url' />
              <small className='text-sm text-red-400'>This is the error</small>
 

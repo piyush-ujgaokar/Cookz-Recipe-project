@@ -15,11 +15,11 @@ const Create = () => {
         recipe.id=nanoid()
         console.log(recipe);
         
-        // const copyData=[...data]
-        // copyData.push(recipe)
-        // setData(copyData)
-
-        setData([...data,recipe])
+        const copyData=[...data]
+        copyData.push(recipe)
+        setData(copyData)
+        localStorage.setItem("recipes",JSON.stringify(copyData))
+        
         toast.success("New recipe created !")
         navigate("/recipes")
 
