@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { recipecontext } from './../context/RecipeContext';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 
 const SingleRecipe = () => {
 
@@ -42,12 +43,40 @@ const SingleRecipe = () => {
 
      }
 
+     const [favourite, setfavourite] = useState(JSON.parse(localStorage.getItem('fav')) || [])
+
+     const FavHandler=()=>{
+     let copyfav=[...favourite]
+     copyfav.push(recipe)
+     setfavourite(copyfav)
+        localStorage.setItem("fav",JSON.stringify(copyfav))
+        
+     }
+
+     const UnFavHandler=()=>{
+        const favFilter=(favourite.filter((f)=> f.id != recipe.id))
+        setfavourite(favFilter)
+        console.log(favFilter);
+          localStorage.setItem("fav",JSON.stringify(favFilter))
+          
+     }
+
+
+     useEffect(()=>{
+      console.log("single Recipe.jsx mounted");
+      return ()=>{
+        console.log("Single recipe .jsx unmounted");
+        
+      }
+     },[])
 
   
 
   return recipe ? (
     <div className='w-full flex '>
-        <div className='left  w-1/2 px-10'>
+        <div className='relative left w-1/2 px-10  overflow-x-hidden '>
+        {favourite.find((f)=> f.id == recipe.id) ?  <i onClick={UnFavHandler} className="right-[5%] absolute text-3xl text-red-500 ri-heart-fill"></i> : <i onClick={FavHandler} className="right-[5%] absolute text-3xl text-red-500 ri-heart-line"></i>}
+
                <h1 className='text-5xl font-bold'>{recipe.title}</h1>
                <img className='h-[25vw] mt-5' src={recipe.image} alt="" />
                <h3 className='text-2xl mt-2'>{recipe.chef}</h3>
@@ -55,7 +84,7 @@ const SingleRecipe = () => {
         </div>
 
 
-            <form onSubmit={handleSubmit(updateHandler)} className='flex flex-col w-[30%] gap-3'>
+            <form onSubmit={handleSubmit(updateHandler)} className='flex ml-20 flex-col w-[30%] gap-3'>
             <input className='border-b outline-none p-2' {...register('image')}  type="url" placeholder='Image Url' />
              <small className='text-sm text-red-400'>This is the error</small>
 
