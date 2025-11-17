@@ -6,7 +6,17 @@ import RecipeCard from '../components/RecipeCard'
 
 const Recipes = () => {
 
+  const {data}=useContext(recipecontext)
 
+  const renderrecipes=data.map((recipe)=>
+          <RecipeCard key={recipe.id} recipe={recipe}/>
+        )
+
+  return (
+    <div className='flex flex-wrap px-10'>
+      {data.length >0 ? renderrecipes:"Recipe Not Found !"}
+    </div>
+  )
 }
 
 export default Recipes
