@@ -73,7 +73,7 @@ const SingleRecipe = () => {
   
 
   return recipe ? (
-    <div className='w-full flex '>
+    <div className='w-full flex'>
         <div className='relative left w-1/2 px-10  overflow-x-hidden '>
         {favourite.find((f)=> f.id == recipe.id) ?  <i onClick={UnFavHandler} className="right-[5%] absolute text-3xl text-red-500 ri-heart-fill"></i> : <i onClick={FavHandler} className="right-[5%] absolute text-3xl text-red-500 ri-heart-line"></i>}
 
